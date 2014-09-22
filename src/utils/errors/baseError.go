@@ -16,7 +16,7 @@ type GlobalWaysBaseError struct {
 	Stack   string
 	Context string
 	inner   error
-	Code    int8
+	Code    int
 }
 
 // This returns a string with all available error information, including inner
@@ -46,7 +46,7 @@ func (e *GlobalWaysBaseError) GetInner() error {
 }
 
 // This returns the error code
-func (e *GlobalWaysBaseError) GetCode() int8 {
+func (e *GlobalWaysBaseError) GetCode() int {
 	return e.Code
 }
 
@@ -64,7 +64,7 @@ func (e *GlobalWaysBaseError) ErrorMessage() string {
 
 // This returns a new GlobalWaysBaseError initialized with the given message and
 // the current stack trace.
-func New(code int8, msg string) GlobalWaysError {
+func New(code int, msg string) GlobalWaysError {
 	stack, context := StackTrace()
 	return &GlobalWaysBaseError{
 		Msg:     msg,
@@ -75,7 +75,7 @@ func New(code int8, msg string) GlobalWaysError {
 }
 
 // Same as New, but with fmt.Printf-style parameters.
-func Newf(code int8, format string, args ...interface{}) GlobalWaysError {
+func Newf(code int, format string, args ...interface{}) GlobalWaysError {
 	stack, context := StackTrace()
 	return &GlobalWaysBaseError{
 		Msg:     fmt.Sprintf(format, args...),
@@ -86,7 +86,7 @@ func Newf(code int8, format string, args ...interface{}) GlobalWaysError {
 }
 
 // Wraps another error in a new GlobalWaysBaseError.
-func Wrap(code int8, err error, msg string) GlobalWaysError {
+func Wrap(code int, err error, msg string) GlobalWaysError {
 	stack, context := StackTrace()
 	return &GlobalWaysBaseError{
 		Msg:     msg,
@@ -98,7 +98,7 @@ func Wrap(code int8, err error, msg string) GlobalWaysError {
 }
 
 // Same as Wrap, but with fmt.Printf-style parameters.
-func Wrapf(code int8, err error, format string, args ...interface{}) GlobalWaysError {
+func Wrapf(code int, err error, format string, args ...interface{}) GlobalWaysError {
 	stack, context := StackTrace()
 	return &GlobalWaysBaseError{
 		Msg:     fmt.Sprintf(format, args...),

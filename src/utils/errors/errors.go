@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+var GlobalWaysErrors map[int]string
+
 // This interface exposes additional information about the error.
 type GlobalWaysError interface {
 	// This returns the error message without the stack trace.
@@ -30,7 +32,7 @@ type GlobalWaysError interface {
 	Error() string
 
 	// This returns the error code. This returns 0 if not error.
-	GetCode() int8
+	GetCode() int
 
 	// This returns true if is error, false or not.
 	IsError() bool

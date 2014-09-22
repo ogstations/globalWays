@@ -6,9 +6,6 @@ module:testrunner
 
 GET     /                                       App.Index
 
-# 会员卡
-POST    /api/memberCard                         MemberCard.GenMemberCards
-
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

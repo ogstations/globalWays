@@ -18,13 +18,27 @@ const (
 	CODE_DB_ERR_INSERT    = CODE_DB_ERR_BASE - 5
 	CODE_DB_ERR_UPDATE    = CODE_DB_ERR_BASE - 6
 	CODE_DB_ERR_COMMIT    = CODE_DB_ERR_BASE - 7
+	CODE_DB_DATA_EXIST    = CODE_DB_ERR_BASE - 8
 )
 
 //错误信息
 const (
-	MSG_SUCCESS = "获取数据成功"
+	MSG_SUCCESS = "Get data successful"
 
 	//DB MSG
 	MSG_DB_ERR_NODATA = "No data exist!"
 	MSG_DB_ERR_COMMIT = "Commit error"
 )
+
+// memberCard API response error code
+const (
+	CODE_INVALID_PARAMS  = -201
+)
+
+func init() {
+	// init error
+	GlobalWaysErrors = make(map[int]string)
+
+	GlobalWaysErrors[CODE_INVALID_PARAMS] = "invalid parameters"
+	GlobalWaysErrors[CODE_DB_DATA_EXIST] = "data exist"
+}

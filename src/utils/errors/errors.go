@@ -170,3 +170,4 @@ func stackTrace(skip int) (current, context string) {
 func StackTrace() (current, context string) {
 	return stackTrace(3)
 }
+

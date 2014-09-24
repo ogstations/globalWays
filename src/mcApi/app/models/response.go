@@ -19,6 +19,18 @@ type RspNewMemberCardChannel struct {
 	FieldErrors []FieldError                  `json:"fieldErrors"`
 }
 
+type RspSingleChannel struct {
+	ChannelId   int64      `json:"channelId"`
+	ChannelName string     `json:"channelName"`
+	ChannelDesc string     `json:"channelDesc"`
+}
+
+type RspUpdChannel struct {
+	ChannelId   int64  `json:"channelId"`
+	ChannelName string `json:"channelName"`
+	ChannelDesc string `json:"channelDesc"`
+}
+
 type FieldError struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`

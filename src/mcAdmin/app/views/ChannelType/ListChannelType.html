@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{{set . "title" "分发渠道列表"}}
+{{template "header.html" .}}
 
-</body>
-</html>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">分发渠道列表</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>渠道ID</th>
+                    <th>渠道名称</th>
+                    <th>渠道描述</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .channels}}
+                <tr>
+                    <td>{{.Id}}</td>
+                    <td>{{.ChannelName}}</td>
+                    <td>{{.ChannelDesc}}</td>
+                    <td>
+                        <a href="{{url "ChannelType.GetSingleChannelType" .Id}}">编辑</a>
+                        |
+                        <a href="">删除</a></td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">共有渠道: <span>{{.channelCnt}}</span>个<a href="{{url "ChannelType.NewChannelType"}}">新建</a></div>
+</div>
+
+{{template "footer.html" .}}

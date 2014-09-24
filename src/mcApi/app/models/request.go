@@ -17,3 +17,9 @@ type ReqNewMemberCardChannel struct {
 	ChannelName string `json:"channelName"`
 	ChannelDesc string `json:"channelDesc"`
 }
+
+type ReqUpdChannel struct {
+	ChannelId   int64  `json:"channelId"`
+	ChannelName string `json:"channelName"`
+	ChannelDesc string `json:"channelDesc"`
+}

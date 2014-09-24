@@ -10,8 +10,10 @@ GET     /                                       App.Index
 POST    /api/memberCard                         MemberCard.GenMemberCards
 
 # 分发渠道
-GET     /api/channelType                        MemberCard.ChannelTypeList
-POST    /api/channelType                        MemberCard.CreateChannelType
+GET     /api/channelTypes                       ChannelType.ChannelTypeList
+GET     /api/channelTypes/id/:channelId         ChannelType.GetChannelById
+PUT     /api/channelType                        ChannelType.UpdateChannel
+POST    /api/channelType                        ChannelType.CreateChannelType
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

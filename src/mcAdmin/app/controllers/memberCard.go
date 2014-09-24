@@ -6,22 +6,14 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/revel/revel"
-	"io/ioutil"
 	"mcAdmin/app"
-	"memberCard"
 	"net/http"
 	"strconv"
 	"bytes"
-	"utils/errors"
 )
 
 type MemberCard struct {
 	*revel.Controller
-}
-
-// api 请求渠道 response
-type RspMemberCardChannelList struct {
-	Channels []*memberCard.MemberCardChannel `json:"channels"`
 }
 
 // api 请求新建会员卡 request
@@ -32,31 +24,6 @@ type ReqNewMemberCard struct {
 	CardCount               int64  `json:"cardCount"`
 	ChannelType             int64  `json:"channelType"`
 	ChannelId               int64  `json:"channelId"`
-}
-
-// 分发渠道
-func getChannelTypeList() ([]*memberCard.MemberCardChannel, errors.GlobalWaysError) {
-
-	channels := make([]*memberCard.MemberCardChannel, 0)
-
-	rsp, err := http.Get(app.ChannelTypeUrl)
-	if rsp.StatusCode != http.StatusOK || err != nil {
-		return channels, errors.Newf(errors.CODE_HTTP_ERR_GET, errors.GlobalWaysErrors[errors.CODE_HTTP_ERR_GET], err.Error())
-	}
-
-	rspBytes, err := ioutil.ReadAll(rsp.Body)
-	if err != nil {
-		return channels, errors.Newf(errors.CODE_HTTP_READ_REQ_BODY, errors.GlobalWaysErrors[errors.CODE_HTTP_READ_REQ_BODY], err)
-	}
-	defer rsp.Body.Close()
-
-	rspMsg := new(RspMemberCardChannelList)
-	if err := json.Unmarshal(rspBytes, rspMsg); err != nil {
-		return channels, errors.Newf(errors.CODE_JSON_ERR_UNMASHAL, errors.GlobalWaysErrors[errors.CODE_JSON_ERR_UNMASHAL], err)
-	}
-	channels = rspMsg.Channels
-
-	return channels, errors.ErrorOK()
 }
 
 // fill form

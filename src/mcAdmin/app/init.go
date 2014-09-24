@@ -43,12 +43,18 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 }
 
 var (
-	// 分发渠道api url
-	ChannelTypeUrl string
 	// 渠道ID api url
 	ChannelIdUrl string
 	// 新建 memberCard api url
 	NewMemberCardUrl string
+	// 分发渠道列表 api url
+	ListChannelTypeUrl string
+	// 单个分发渠道 api url
+	SingleChannelTypeUrl string
+	// 更新分发渠道 api url
+	UpdChannelTypeUrl string
+	// 新建分发渠道 api url
+	NewChannelTypeUrl string
 )
 
 // api url
@@ -59,7 +65,10 @@ func loadApiUrl() {
 		revel.ERROR.Fatalf("laod configure file return error: %v, exit.", err)
 	}
 
-	ChannelTypeUrl, _ = config_file.GetValue("api", "api.channelType.url")
 	ChannelIdUrl, _ = config_file.GetValue("api", "api.channelId.url")
 	NewMemberCardUrl, _ = config_file.GetValue("api", "api.newCard.url")
+	ListChannelTypeUrl, _ = config_file.GetValue("api", "api.listChannel.url")
+	SingleChannelTypeUrl, _ = config_file.GetValue("api", "api.singleChannel.url")
+	UpdChannelTypeUrl, _ = config_file.GetValue("api", "api.updChannel.url")
+	NewChannelTypeUrl,_ = config_file.GetValue("api", "api.newChannel.url")
 }

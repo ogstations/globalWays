@@ -8,7 +8,8 @@ GET     /                                       App.Index
 
 // 分发渠道
 GET     /channelTypes                           ChannelType.ListChannelType
-GET     /channelTypes/id/:channelId             ChannelType.GetChannelTypeById
+GET     /channelTypes/single                    ChannelType.GetSingleChannelType
+POST    /channelTypes/single                    ChannelType.UpdateChannelType
 GET     /channelTypes/insert                    ChannelType.NewChannelType
 POST    /channelTypes/insert                    ChannelType.NewChannelType
 

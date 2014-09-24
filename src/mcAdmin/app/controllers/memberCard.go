@@ -4,12 +4,16 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
 	"github.com/revel/revel"
 	"mcAdmin/app"
 	"net/http"
 	"strconv"
-	"bytes"
+	"fmt"
+	"memberCard"
+	"io/ioutil"
+	"regexp"
 )
 
 type MemberCard struct {
@@ -24,6 +28,12 @@ type ReqNewMemberCard struct {
 	CardCount               int64  `json:"cardCount"`
 	ChannelType             int64  `json:"channelType"`
 	ChannelId               int64  `json:"channelId"`
+}
+
+// api 会员卡列表 response
+type RspMemberCardList struct {
+	Cards []*memberCard.MemberCard `json:"cards"`
+	Count int64 `json:"count`
 }
 
 // fill form
@@ -104,6 +114,50 @@ func (c *MemberCard) GenMemberCard() revel.Result {
 		revel.WARN.Printf("http post request return error: %v, app.NewMemberCardUrl: %v", err, app.NewMemberCardUrl)
 		return c.Render()
 	}
+
+	return c.Render()
+}
+
+const (
+	DigitalRegexp string = "^[0-9]*$"
+)
+
+// 会员卡列表
+func (c *MemberCard) ListMemberCard() revel.Result {
+
+	cards := make([]*memberCard.MemberCard, 0)
+
+	//参数验证
+	pageNum, pageSize := 1, 10
+
+	pageStr := c.Params.Get("page")
+	c.Validation.Match(pageStr, regexp.MustCompile(DigitalRegexp))
+	if len(pageStr) != 0 && !c.Validation.HasErrors() {
+		pageNum, _ = strconv.Atoi(pageStr)
+	}
+
+	pageSizeStr := c.Params.Get("size")
+	c.Validation.Match(pageSizeStr, regexp.MustCompile(DigitalRegexp))
+	if len(pageSizeStr) != 0 && !c.Validation.HasErrors() {
+		pageSize, _ = strconv.Atoi(pageSizeStr)
+	}
+
+	rsp, err := http.Get(fmt.Sprintf(app.ListMemberCardUrl + "?page=%v&size=%v", pageNum, pageSize))
+	if  err != nil {
+		println(err.Error())
+	}
+
+	rspBytes, err := ioutil.ReadAll(rsp.Body)
+	if err != nil {
+	}
+	defer rsp.Body.Close()
+
+	rspMsg := new(RspMemberCardList)
+	if err := json.Unmarshal(rspBytes, rspMsg); err != nil {
+	}
+
+	cards = append(cards, rspMsg.Cards...)
+	c.RenderArgs["cards"] = cards
 
 	return c.Render()
 }

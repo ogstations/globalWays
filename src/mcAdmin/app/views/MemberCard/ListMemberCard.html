@@ -1,0 +1,44 @@
+{{set . "title" "会员卡列表"}}
+{{template "header.html" .}}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">会员卡列表</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>编号ID</th>
+                <th>产业标识</th>
+                <th>公司标识</th>
+                <th>地域标识</th>
+                <th>个人标识</th>
+                <th>校验位</th>
+                <th>分发渠道</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .cards}}
+            <tr>
+                <td>{{.Id}}</td>
+                <td>{{.MII}}</td>
+                <td>{{.CPI}}</td>
+                <td>{{.CDI}}</td>
+                <td>{{.PII}}</td>
+                <td>{{.IVC}}</td>
+                <td>{{.ChannelType}}</td>
+                <td>
+                    <a href="{{url "ChannelType.GetSingleChannelType" .Id}}">编辑</a>
+                    |
+                    <a href="">删除</a></td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer"><a href="{{url "MemberCard.DisplayForm"}}">新建会员卡</a></div>
+</div>
+
+{{template "footer.html" .}}

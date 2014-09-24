@@ -1,9 +1,9 @@
 package app
 
 import (
+	"github.com/Unknwon/goconfig"
 	"github.com/revel/revel"
 	"path/filepath"
-	"github.com/Unknwon/goconfig"
 )
 
 func init() {
@@ -43,18 +43,15 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 }
 
 var (
-	// 渠道ID api url
-	ChannelIdUrl string
-	// 新建 memberCard api url
-	NewMemberCardUrl string
-	// 分发渠道列表 api url
-	ListChannelTypeUrl string
-	// 单个分发渠道 api url
-	SingleChannelTypeUrl string
-	// 更新分发渠道 api url
-	UpdChannelTypeUrl string
-	// 新建分发渠道 api url
-	NewChannelTypeUrl string
+	ListMemberCardUrl string // memberCard列表 api url
+	NewMemberCardUrl string // 新建 memberCard api url
+
+	ChannelIdUrl string // 渠道ID api url
+
+	ListChannelTypeUrl string // 分发渠道列表 api url
+	SingleChannelTypeUrl string // 单个分发渠道 api url
+	UpdChannelTypeUrl string // 更新分发渠道 api url
+	NewChannelTypeUrl string // 新建分发渠道 api url
 )
 
 // api url
@@ -70,5 +67,6 @@ func loadApiUrl() {
 	ListChannelTypeUrl, _ = config_file.GetValue("api", "api.listChannel.url")
 	SingleChannelTypeUrl, _ = config_file.GetValue("api", "api.singleChannel.url")
 	UpdChannelTypeUrl, _ = config_file.GetValue("api", "api.updChannel.url")
-	NewChannelTypeUrl,_ = config_file.GetValue("api", "api.newChannel.url")
+	NewChannelTypeUrl, _ = config_file.GetValue("api", "api.newChannel.url")
+	ListMemberCardUrl, _ = config_file.GetValue("api", "api.listCard.url")
 }

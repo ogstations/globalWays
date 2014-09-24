@@ -14,6 +14,11 @@ type RspMemberCardChannelList struct {
 	Channels []*memberCard.MemberCardChannel `json:"channels"`
 }
 
+type RspMemberCardList struct {
+	Cards []*memberCard.MemberCard `json:"cards"`
+	Count int64 `json:"count`
+}
+
 type RspNewMemberCardChannel struct {
 	Channel     *memberCard.MemberCardChannel `json:"channel"`
 	FieldErrors []FieldError                  `json:"fieldErrors"`

@@ -25,8 +25,6 @@ const (
 const (
 	MSG_SUCCESS = "Get data successful"
 
-	//DB MSG
-	MSG_DB_ERR_NODATA = "No data exist!"
 	MSG_DB_ERR_COMMIT = "Commit error"
 )
 
@@ -52,6 +50,7 @@ func init() {
 	GlobalWaysErrors[CODE_DB_ERR_NODATA] = "no data exist"
 	GlobalWaysErrors[CODE_DB_ERR_GET] = "get data error: %v"
 	GlobalWaysErrors[CODE_DB_ERR_UPDATE] = "update data error: %v"
+	GlobalWaysErrors[CODE_DB_ERR_FIND] = "find data error: %v"
 
 	GlobalWaysErrors[CODE_INVALID_PARAMS] = "invalid parameters"
 	GlobalWaysErrors[CODE_HTTP_ERR_GET] = "http get error: %v"

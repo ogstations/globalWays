@@ -3,11 +3,12 @@ package models
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/xorm"
 	"github.com/go-xorm/core"
-	"path/filepath"
-	"github.com/revel/revel"
+	"github.com/go-xorm/xorm"
 	"github.com/revel/config"
+	"github.com/revel/revel"
+	"memberCard"
+	"path/filepath"
 )
 
 //数据库连接
@@ -20,6 +21,7 @@ var (
 
 func init() {
 	revel.OnAppStart(initDB)
+	revel.OnAppStart(syncDB)
 }
 
 //初始化数据库
@@ -42,6 +44,7 @@ func initDB() {
 		revel.WARN.Fatalf("数据库连接错误: %v", err)
 	}
 	ReaderEngine.SetMapper(core.SameMapper{})
+//	ReaderEngine.ShowSQL = true
 
 	write_driver, _ := c.String("database", "db.write.driver")
 	write_dbname, _ := c.String("database", "db.write.dbname")
@@ -52,8 +55,15 @@ func initDB() {
 
 	WriterEngine, err = xorm.NewEngine(write_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", write_user, write_password, write_host, write_dbname, write_encoding))
 	if err != nil {
-		revel.WARN.Fatalf("数据库连接错误: %v",err)
+		revel.WARN.Fatalf("数据库连接错误: %v", err)
 	}
 	WriterEngine.SetMapper(core.SameMapper{})
+//	WriterEngine.ShowSQL = true
+}
 
+// 同步数据库
+func syncDB() {
+	if err := WriterEngine.Sync(new(memberCard.MemberCard), new(memberCard.MemberCardChannel)); err != nil {
+		revel.ERROR.Fatalf("数据库同步错误: %v", err)
+	}
 }

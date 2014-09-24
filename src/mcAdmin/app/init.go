@@ -1,6 +1,10 @@
 package app
 
-import "github.com/revel/revel"
+import (
+	"github.com/revel/revel"
+	"path/filepath"
+	"github.com/Unknwon/goconfig"
+)
 
 func init() {
 	// Filters is the default set of global filters.
@@ -23,6 +27,7 @@ func init() {
 	// ( order dependent )
 	// revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
+	revel.OnAppStart(loadApiUrl)
 }
 
 // TODO turn this into revel.HeaderFilter
@@ -35,4 +40,26 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 	c.Response.Out.Header().Add("X-Content-Type-Options", "nosniff")
 
 	fc[0](c, fc[1:]) // Execute the next filter stage.
+}
+
+var (
+	// 分发渠道api url
+	ChannelTypeUrl string
+	// 渠道ID api url
+	ChannelIdUrl string
+	// 新建 memberCard api url
+	NewMemberCardUrl string
+)
+
+// api url
+func loadApiUrl() {
+
+	config_file, err := goconfig.LoadConfigFile(filepath.Join(revel.BasePath, "conf", "api.conf"))
+	if err != nil {
+		revel.ERROR.Fatalf("laod configure file return error: %v, exit.", err)
+	}
+
+	ChannelTypeUrl, _ = config_file.GetValue("api", "api.channelType.url")
+	ChannelIdUrl, _ = config_file.GetValue("api", "api.channelId.url")
+	NewMemberCardUrl, _ = config_file.GetValue("api", "api.newCard.url")
 }

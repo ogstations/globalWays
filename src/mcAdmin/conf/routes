@@ -6,6 +6,16 @@ module:testrunner
 
 GET     /                                       App.Index
 
+// 分发渠道
+GET     /channelTypes                           ChannelType.ListChannelType
+GET     /channelTypes/id/:channelId             ChannelType.GetChannelTypeById
+GET     /channelTypes/insert                    ChannelType.NewChannelType
+POST    /channelTypes/insert                    ChannelType.NewChannelType
+
+// 会员卡
+GET     /genMemberCard                          MemberCard.DisplayForm
+POST    /genMemberCard                          MemberCard.GenMemberCard
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

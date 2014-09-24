@@ -5,10 +5,15 @@ package models
 
 // 请求新建会员卡
 type ReqNewMemberCard struct {
-	MajorIndustryIdentifier  byte `json:"majorIndustryIdentifier"`
-	CompanyIdentifier        byte `json:"companyIdentifier"`
-	DomainIdentifier         uint16 `json:"domainIdentifier"`
-	CardCount                int64 `json:"cardCount"`
-	ChannelType              int64 `json:"channelType"`
-	ChannelId                int64 `json:"channelId"`
+	MajorIndustryIdentifier byte   `json:"majorIndustryIdentifier"`
+	CompanyIdentifier       byte   `json:"companyIdentifier"`
+	DomainIdentifier        uint16 `json:"domainIdentifier"`
+	CardCount               int64  `json:"cardCount"`
+	ChannelType             int64  `json:"channelType"`
+	ChannelId               int64  `json:"channelId"`
+}
+
+type ReqNewMemberCardChannel struct {
+	ChannelName string `json:"channelName"`
+	ChannelDesc string `json:"channelDesc"`
 }

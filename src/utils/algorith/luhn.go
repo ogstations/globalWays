@@ -12,7 +12,7 @@ Luhn算法会通过校验码对一串数字进行验证，校验码通常会被�
 将数字的和取模10（本例中得到7），再用10去减（本例中得到3），得到校验位。
 
 原始数字	    7	9	9	2	7	3	9	8	7	1	x
-偶数位乘2	7	18	9	4	7	6	9	16	7	2	x
+偶数位乘2	    7	18	9	4	7	6	9	16	7	2	x
 将数字相加	7	9	9	4	7	6	9	7	7	2	=67
 
 另一种方法是：
@@ -39,8 +39,7 @@ func ValidateLuhn(s string) bool {
 	return false
 }
 
-// 参数byteDigit不包含校验位，那么验证时最后那位（循环首位）即为描述中的偶数位
-func GenLuhnCheckDigit(byteDigit []byte) byte {
+func sumDigit(byteDigit []byte) uint8 {
 
 	chkSum := uint8(0)
 	bOdd := true
@@ -55,7 +54,17 @@ func GenLuhnCheckDigit(byteDigit []byte) byte {
 		bOdd = !bOdd
 	}
 
-	return 10 - (chkSum % 10)
+	return chkSum
+}
+
+// 参数byteDigit不包含校验位，那么验证时最后那位（循环首位）即为描述中的偶数位
+func GenLuhnCheckDigit(byteDigit []byte) byte {
+
+	digit := 10 - (sumDigit(byteDigit) % 10)
+	if digit == 10 {
+		digit = 0
+	}
+	return digit
 }
 
 func sumBitsAndTen(b uint8) uint8 {

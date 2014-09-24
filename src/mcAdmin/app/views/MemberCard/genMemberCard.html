@@ -1,0 +1,45 @@
+{{set . "title" "批量生成会员卡"}}
+{{template "header.html" .}}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">会员卡生成</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" method="post" action="{{url "MemberCard.GenMemberCard"}}">
+            <div class="form-group">
+                <label for="mii">主要产业标识符</label>
+                <input type="number" min="0" max="9" class="form-control" id="mii" name="mii" placeholder="输入主要产业标识符，默认：6">
+            </div>
+            <div class="form-group">
+                <label for="cpi">公司标识符</label>
+                <input type="number" min="00" max="99" class="form-control" id="cpi" name="cpi" placeholder="输入公司标识符，默认：32">
+            </div>
+            <div class="form-group">
+                <label for="cdi">地区标识符</label>
+                <input type="number" min="000" max="999" class="form-control" id="cdi" name="cdi" placeholder="输入地区标识符，默认：86">
+            </div>
+            <div class="form-group">
+                <label for="cardCount">会员卡数量</label>
+                <input type="number" min="" max="999999999999" class="form-control" id="cardCount" name="cardCount" placeholder="输入会员卡生成数量，默认：100">
+            </div>
+            <div class="form-group">
+                <label for="cardCount">分发渠道</label>
+                <select name="channelType">
+                    {{range .channels}}
+                        <option value="{{.Id}}">{{.ChannelName}}</option>
+                    {{end}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="channelID">渠道ID</label>
+                <input type="number" class="form-control" id="channelID" name="channelID" placeholder="输入渠道ID">
+            </div>
+            <button type="submit" class="btn btn-default">生成会员卡</button>
+        </form>
+
+    </div>
+</div>
+
+
+{{template "footer.html" .}}

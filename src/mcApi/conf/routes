@@ -9,6 +9,10 @@ GET     /                                       App.Index
 # 会员卡
 POST    /api/memberCard                         MemberCard.GenMemberCards
 
+# 分发渠道
+GET     /api/channelType                        MemberCard.ChannelTypeList
+POST    /api/channelType                        MemberCard.CreateChannelType
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

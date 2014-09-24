@@ -6,8 +6,17 @@ package models
 import "memberCard"
 
 type RspNewMemberCard struct {
-	CardNumbers     []memberCard.CardNumber `json:"cardNumbers"`
-	FieldErrors     []FieldError `json:"fieldErrors"`
+	CardNumbers []memberCard.CardNumber `json:"cardNumbers"`
+	FieldErrors []FieldError            `json:"fieldErrors"`
+}
+
+type RspMemberCardChannelList struct {
+	Channels []*memberCard.MemberCardChannel `json:"channels"`
+}
+
+type RspNewMemberCardChannel struct {
+	Channel     *memberCard.MemberCardChannel `json:"channel"`
+	FieldErrors []FieldError                  `json:"fieldErrors"`
 }
 
 type FieldError struct {
@@ -16,7 +25,6 @@ type FieldError struct {
 }
 
 type RspError struct {
-	ErrorCode   int     `json:"errorCode"`
-	Message     string  `json:"message"`
+	ErrorCode int    `json:"errorCode"`
+	Message   string `json:"message"`
 }
-

@@ -16,7 +16,7 @@ type RspMemberCardChannelList struct {
 
 type RspMemberCardList struct {
 	Cards []*memberCard.MemberCard `json:"cards"`
-	Count int64 `json:"count`
+	Count int64                    `json:"count`
 }
 
 type RspNewMemberCardChannel struct {
@@ -25,9 +25,9 @@ type RspNewMemberCardChannel struct {
 }
 
 type RspSingleChannel struct {
-	ChannelId   int64      `json:"channelId"`
-	ChannelName string     `json:"channelName"`
-	ChannelDesc string     `json:"channelDesc"`
+	ChannelId   int64  `json:"channelId"`
+	ChannelName string `json:"channelName"`
+	ChannelDesc string `json:"channelDesc"`
 }
 
 type RspUpdChannel struct {

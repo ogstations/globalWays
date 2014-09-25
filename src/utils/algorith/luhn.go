@@ -70,4 +70,3 @@ func GenLuhnCheckDigit(byteDigit []byte) byte {
 func sumBitsAndTen(b uint8) uint8 {
 	return (b / 10) + (b % 10)
 }
-

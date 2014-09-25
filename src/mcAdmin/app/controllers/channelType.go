@@ -4,16 +4,16 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
 	"github.com/revel/revel"
 	"io/ioutil"
 	"mcAdmin/app"
+	"mcAdmin/app/routes"
 	"memberCard"
 	"net/http"
-	"utils/errors"
 	"strconv"
-	"mcAdmin/app/routes"
-	"bytes"
+	"utils/errors"
 )
 
 type ChannelType struct {
@@ -155,4 +155,3 @@ func getChannelTypeById(id int64) (*memberCard.MemberCardChannel, errors.GlobalW
 
 	return channel, errors.ErrorOK()
 }
-

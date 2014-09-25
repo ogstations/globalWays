@@ -44,14 +44,14 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 
 var (
 	ListMemberCardUrl string // memberCard列表 api url
-	NewMemberCardUrl string // 新建 memberCard api url
+	NewMemberCardUrl  string // 新建 memberCard api url
 
 	ChannelIdUrl string // 渠道ID api url
 
-	ListChannelTypeUrl string // 分发渠道列表 api url
+	ListChannelTypeUrl   string // 分发渠道列表 api url
 	SingleChannelTypeUrl string // 单个分发渠道 api url
-	UpdChannelTypeUrl string // 更新分发渠道 api url
-	NewChannelTypeUrl string // 新建分发渠道 api url
+	UpdChannelTypeUrl    string // 更新分发渠道 api url
+	NewChannelTypeUrl    string // 新建分发渠道 api url
 )
 
 // api url

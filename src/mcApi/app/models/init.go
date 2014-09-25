@@ -44,7 +44,7 @@ func initDB() {
 		revel.WARN.Fatalf("数据库连接错误: %v", err)
 	}
 	ReaderEngine.SetMapper(core.SameMapper{})
-	ReaderEngine.ShowSQL = true
+	//	ReaderEngine.ShowSQL = true
 
 	write_driver, _ := c.String("database", "db.write.driver")
 	write_dbname, _ := c.String("database", "db.write.dbname")
@@ -58,7 +58,7 @@ func initDB() {
 		revel.WARN.Fatalf("数据库连接错误: %v", err)
 	}
 	WriterEngine.SetMapper(core.SameMapper{})
-	WriterEngine.ShowSQL = true
+	//	WriterEngine.ShowSQL = true
 }
 
 // 同步数据库

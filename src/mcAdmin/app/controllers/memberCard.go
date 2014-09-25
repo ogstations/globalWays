@@ -6,14 +6,15 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/revel/revel"
-	"mcAdmin/app"
-	"net/http"
-	"strconv"
 	"fmt"
-	"memberCard"
+	"github.com/revel/revel"
 	"io/ioutil"
+	"mcAdmin/app"
+	"mcAdmin/app/routes"
+	"memberCard"
+	"net/http"
 	"regexp"
+	"strconv"
 )
 
 type MemberCard struct {
@@ -33,7 +34,7 @@ type ReqNewMemberCard struct {
 // api 会员卡列表 response
 type RspMemberCardList struct {
 	Cards []*memberCard.MemberCard `json:"cards"`
-	Count int64 `json:"count`
+	Count int64                    `json:"count`
 }
 
 // fill form
@@ -115,7 +116,7 @@ func (c *MemberCard) GenMemberCard() revel.Result {
 		return c.Render()
 	}
 
-	return c.Render()
+	return c.Redirect(routes.MemberCard.ListMemberCard())
 }
 
 const (
@@ -142,8 +143,8 @@ func (c *MemberCard) ListMemberCard() revel.Result {
 		pageSize, _ = strconv.Atoi(pageSizeStr)
 	}
 
-	rsp, err := http.Get(fmt.Sprintf(app.ListMemberCardUrl + "?page=%v&size=%v", pageNum, pageSize))
-	if  err != nil {
+	rsp, err := http.Get(fmt.Sprintf(app.ListMemberCardUrl+"?page=%v&size=%v", pageNum, pageSize))
+	if err != nil {
 		println(err.Error())
 	}
 

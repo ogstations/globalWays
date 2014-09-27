@@ -14,6 +14,9 @@ import (
 	"strconv"
 	"utils/errors"
 	"utils/page"
+	"bytes"
+	"fmt"
+	"time"
 )
 
 type MemberCard struct {
@@ -131,4 +134,23 @@ func (c *MemberCard) MemberCardList() revel.Result {
 	rspMsg.Count = 100
 
 	return c.RenderJson(rspMsg)
+}
+
+// 会员卡二维码二进制流
+func (c *MemberCard) GenQrCode(id int64) revel.Result {
+
+	card, gErr := memberCard.GetMemberCardById(id, models.ReaderEngine)
+	if gErr.IsError() {
+		revel.WARN.Printf("get memberCard by id return error: %v", gErr.ErrorMessage())
+
+		rspErr := &models.RspError{
+			ErrorCode: gErr.GetCode(),
+			Message:   gErr.GetMessage(),
+		}
+		c.Response.Status = http.StatusInternalServerError
+
+		return c.RenderJson(rspErr)
+	}
+
+	return c.RenderBinary(bytes.NewReader(card.GenQrStream()), fmt.Sprintf("%s.png", card.String()), revel.Inline, time.Now())
 }

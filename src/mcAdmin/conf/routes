@@ -17,6 +17,7 @@ POST    /channelTypes/insert                    ChannelType.NewChannelType
 GET     /memberCards                            MemberCard.ListMemberCard
 GET     /genMemberCard                          MemberCard.DisplayForm
 POST    /genMemberCard                          MemberCard.GenMemberCard
+GET     /cardQrCode                             MemberCard.DisplayQrCode
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -16,6 +16,7 @@
                 <th>个人标识</th>
                 <th>校验位</th>
                 <th>分发渠道</th>
+                <th>渠道ID</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -29,23 +30,14 @@
                 <td>{{.PII}}</td>
                 <td>{{.IVC}}</td>
                 <td>{{.ChannelType}}</td>
+                <td>{{.ChannelId}}</td>
                 <td>
-                    <a href="">编辑</a>
-                    |
-                    <a href="">删除</a></td>
+                    <a target="_blank" href="{{url "MemberCard.DisplayQrCode" .Id}}">查看二维码</a>
+                </td>
             </tr>
             {{end}}
             </tbody>
         </table>
-        <ul class="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul>
     </div>
     <div class="panel-footer"><a href="{{url "MemberCard.DisplayForm"}}">新建会员卡</a></div>
 </div>

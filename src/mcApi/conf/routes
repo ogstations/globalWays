@@ -9,6 +9,7 @@ GET     /                                       App.Index
 # 会员卡
 GET     /api/memberCards                        MemberCard.MemberCardList
 POST    /api/memberCard                         MemberCard.GenMemberCards
+GET     /api/qrCode                             MemberCard.GenQrCode
 
 # 分发渠道
 GET     /api/channelTypes                       ChannelType.ChannelTypeList

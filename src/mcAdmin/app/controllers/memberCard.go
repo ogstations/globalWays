@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
+	"time"
 )
 
 type MemberCard struct {
@@ -161,4 +162,16 @@ func (c *MemberCard) ListMemberCard() revel.Result {
 	c.RenderArgs["cards"] = cards
 
 	return c.Render()
+}
+
+func (c *MemberCard) DisplayQrCode(id int64) revel.Result {
+	rsp, err := http.Get(fmt.Sprintf(app.MemberCardQrCodeUrl+"?id=%v", id))
+	if rsp.StatusCode != http.StatusOK {
+		println("qr status code not 200 ok")
+	}
+	if err != nil {
+		println("qr error: ", err.Error())
+	}
+
+	return c.RenderBinary(rsp.Body, "qrCode.png", revel.Inline, time.Now())
 }

@@ -45,6 +45,7 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 var (
 	ListMemberCardUrl string // memberCard列表 api url
 	NewMemberCardUrl  string // 新建 memberCard api url
+	MemberCardQrCodeUrl string // memberCard 二维码 api url
 
 	ChannelIdUrl string // 渠道ID api url
 
@@ -69,4 +70,5 @@ func loadApiUrl() {
 	UpdChannelTypeUrl, _ = config_file.GetValue("api", "api.updChannel.url")
 	NewChannelTypeUrl, _ = config_file.GetValue("api", "api.newChannel.url")
 	ListMemberCardUrl, _ = config_file.GetValue("api", "api.listCard.url")
+	MemberCardQrCodeUrl, _ = config_file.GetValue("api", "api.qrcode.url")
 }

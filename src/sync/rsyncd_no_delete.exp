@@ -1,0 +1,41 @@
+#!/usr/bin/expect --
+set timeout 14400
+
+if { [llength $argv] < 6} {
+    puts "usage: $argv0 {dest_ip} {dest_dir} {dest_user} {dest_passwd} {src_dir} {bandwith}"
+    exit 1
+}
+
+set dest_ip [lindex $argv 0]
+set dest_dir [lindex $argv 1]
+set dest_user [lindex $argv 2]
+set dest_passwd [lindex $argv 3]
+set src_dir [lindex $argv 4]
+set bandwidth [lindex $argv 5]
+set excludeFiles [lindex $argv 6]
+set passwderror 0
+
+spawn /usr/bin/rsync --exclude=code.google.com --exclude=github.com --exclude=memberCard1 --exclude=mcApi1 --exclude=mcAdmin --exclude=.git --exclude=conf --exclude=tests --exclude=lastupdate.tmp --exclude=$excludeFiles --timeout=$timeout --progress -a -r --bwlimit=$bandwidth -e /usr/bin/ssh "$src_dir" $dest_user@$dest_ip:$dest_dir
+expect 	{
+    "*assword:*" {
+         if { $passwderror == 2 } {
+             puts "passwd is error"
+             exit 2  
+         }       
+         set passwderror [ expr $passwderror + 1 ]
+         send "$dest_passwd\r"
+         exp_continue
+     }
+    "*es/no)?*" {
+        send "yes\r"
+        exp_continue
+    }
+    eof {
+    }
+    timeout {
+        puts "connect is timeout"
+        exit 3
+    }
+}
+catch wait result
+exit [lindex $result 3]

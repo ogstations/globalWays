@@ -49,6 +49,7 @@ func init() {
 	GlobalWaysErrors[CODE_DB_DATA_EXIST] = "data exist"
 	GlobalWaysErrors[CODE_DB_ERR_NODATA] = "no data exist"
 	GlobalWaysErrors[CODE_DB_ERR_GET] = "get data error: %v"
+	GlobalWaysErrors[CODE_DB_ERR_INSERT] = "insert data error: %v"
 	GlobalWaysErrors[CODE_DB_ERR_UPDATE] = "update data error: %v"
 	GlobalWaysErrors[CODE_DB_ERR_FIND] = "find data error: %v"
 

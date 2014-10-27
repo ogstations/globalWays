@@ -1,0 +1,84 @@
+{{template "public/header.html" .}}
+
+<body>
+	<div style="_margin-right:-12px;_width:98.9%;" class="pad-10" id="main_frameid">
+
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{i18n .Lang "main_personal_information"}}</h6>
+			{{if .admin}}
+				{{$admin_info := .admin}}
+				<div class="content">
+					{{i18n .Lang "main_hello"}}{{$admin_info.RealName}}<br>
+					{{i18n .Lang "main_role"}}{{$admin_info.Role.RoleName}} <br>
+				<div class="bk20 hr"><hr></div>
+					{{i18n .Lang "main_last_logintime"}}{{$admin_info.LastLoginTime}}<br>
+					{{i18n .Lang "main_last_loginip"}}{{$admin_info.LastLoginIp}} <br>
+				</div>
+			{{end}}
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{i18n .Lang "main_safety_tips"}}</h6>
+			<div style="color:#ff0000;" class="content">			
+				
+			</div>
+		</div>
+
+		<div class="bk10"></div>
+
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{i18n .Lang "main_shortcut"}}</h6>
+			<div id="admin_panel" class="content">
+				{{range .panelList}}
+					<span>
+						[<a href="javascript:;" onclick="window.top._MP({{.Menu.Id}},'{{.Menu.Url}}')">
+						{{.Menu.Name}}
+						</a>]
+					</span>
+				{{end}}
+			</div>
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{i18n .Lang "main_sysinfo"}}</h6>
+			{{if .system_info}}
+				{{$system_info := .system_info}}
+				<div class="content">
+					{{i18n .Lang "main_version"}}GoCMS V{{$system_info.version}}
+					[<a href="javascript:;">{{i18n .Lang "main_latest_version"}}</a>]<br>
+					{{i18n .Lang "main_os"}}{{$system_info.os}} <br>
+					{{i18n .Lang "main_web_server"}}{{$system_info.go_varsion}} <br>
+					{{i18n .Lang "main_sql_version"}}{{$system_info.mysql_varsion}}<br>
+				</div>
+			{{end}}
+		</div>
+
+		<div class="bk10"></div>
+
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{i18n .Lang "main_product_team"}}</h6>
+			<div class="content">
+				{{i18n .Lang "main_copyright"}}北京季仲兄弟科技有限公司<br>
+				{{i18n .Lang "main_product_planning"}}张仲东<br>
+				{{i18n .Lang "main_product_dev"}}张仲东，张季东<br>
+				{{i18n .Lang "main_product_ui"}}张仲东<br>
+				{{i18n .Lang "main_product_site"}}<a href="javascript:;">http://www.6574.com.cn/</a> <br>
+				{{i18n .Lang "main_product_bbs"}}<a href="javascript:;">http://bbs.6574.com.cn/</a>
+			</div>
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{i18n .Lang "main_license"}}</h6>
+			<div class="content">
+			{{i18n .Lang "main_version"}}GoCMS V0.1<br>
+			<!--{{i18n .Lang "main_license_type"}}<span id="phpcms_license">未授权（<a style="color:red" href="javascript:;">点击购买</a>）</span> <br>
+			{{i18n .Lang "main_serial_number"}}<span id="phpcms_sn">未激活（<a style="color:red" href="javascript:;">点击激活</a>）</span> <br> -->
+			</div>
+		</div>
+
+		<div class="bk10"></div>
+
+	</div>
+</body>
+
+{{template "public/footer.html" .}}

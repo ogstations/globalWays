@@ -31,3 +31,4 @@ src/code.google.com
 src/github.com
 .DS_store
 data
+*.tmp

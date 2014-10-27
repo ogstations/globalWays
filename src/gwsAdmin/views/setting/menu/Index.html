@@ -1,0 +1,70 @@
+{{template "public/header.html" .}}
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{i18n .Lang "menu_manage"}}</em></a><span>|</span> <a
+				href="{{urlfor "MenuController.AddMenuTop"}}"><em>{{i18n .Lang "menu_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad-lr-10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="30%">{{i18n .Lang "menu_name"}}</th>
+						<th width="5%">{{i18n .Lang "menu_order"}}</th>
+						<th width="25%">{{i18n .Lang "menu_url"}}</th>
+						<th width="15%">{{i18n .Lang "menu_display"}}</th>
+						<th width="25%">{{i18n .Lang "menu_operation"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{{if .menus}}
+					{{.menus}}
+				{{end}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="pages"></div>
+</body>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		window.top.$('#display_center_id').css('display', 'none');
+	});
+//-->
+
+
+/**
+ * 删除菜单
+ *
+ * @param id
+ */
+function delete_menu(id) {
+	if (id == '') {
+		notice_tips("参数错误!");
+		return false;
+	}
+
+	art.dialog.confirm('你确定要删除吗?', function() {
+		$.ajax({
+			type : "DELETE",
+			url : "/menu/delete/" + id,
+			success : function(tmp) {
+				if (tmp.status == 1) {
+					notice_tips("删除菜单成功!");
+					right_refresh();
+				} else {
+					notice_tips(tmp.message);
+				}
+			}
+		});
+	}, function() {
+		notice_tips("你取消了删除菜单操作!");
+	});
+}
+</script>
+
+{{template "public/footer.html" .}}

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+    <meta charset="UTF-8">
+    <title>{{i18n .Lang "login_title"}}</title>
+    <link href="/static/img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/css/blue_color.css" media="all">
+    <script type="text/javascript" src="/static/js/lib/jquery-1.10.2.min.js"></script>
+    </head>
+    <body id="login-page">
+        <div id="main-content">
+            <!-- 主体 -->
+            <div class="login-body">
+                <div class="login-main pr">
+                    <form action="{{urlfor "AdminController.LoginPost"}}" method="post" class="login-form">
+                        <h3 class="welcome"><i class="login-logo"></i>{{i18n .Lang "login_welcome"}}</h3>
+                        <div id="itemBox" class="item-box">
+                            <div class="item">
+                                <i class="icon-login-user"></i>
+                                <input type="text" name="username" placeholder="{{i18n .Lang "login_user_name"}}" autocomplete="off" />
+                            </div>
+                            <span class="placeholder_copy placeholder_un">
+                                {{i18n .Lang "login_user_name"}}
+                            </span>
+                            <div class="item b0">
+                                <i class="icon-login-pwd"></i>
+                                <input type="password" name="password" placeholder="{{i18n .Lang "login_password"}}" autocomplete="off" />
+                            </div>
+                            <span class="placeholder_copy placeholder_pwd">
+                                {{i18n .Lang "login_password"}}
+                            </span>
+                            <div class="item verifycode">
+                                <i class="icon-login-verifycode"></i>
+                                <input type="text" name="verify" placeholder="{{i18n .Lang "login_verification_code"}}" autocomplete="off">
+                                <a class="reloadverify" title="{{i18n .Lang "login_change"}}" href="javascript:void(0)">{{i18n .Lang "login_change"}}？</a>
+                            </div>
+                            <span class="placeholder_copy placeholder_check">{{i18n .Lang "login_verification_code"}}</span>
+                            <div>
+                                {{create_captcha}}
+                            </div>
+                        </div>
+                        <div class="login_btn_panel">
+                            <button class="login-btn" type="submit">
+                                <span class="in"><i class="icon-loading"></i>
+                                    {{i18n .Lang "login_in"}} ...
+                                </span>
+                                <span class="on">{{i18n .Lang "login"}}</span>
+                            </button>
+                            <div class="check-tips"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <script>
+    /* 登陆表单获取焦点变色 */
+    $(".login-form").on("focus", "input", function(){
+        $(this).closest('.item').addClass('focus');
+    }).on("blur","input",function(){
+        $(this).closest('.item').removeClass('focus');
+    });
+
+    function GetCaptcha() {
+        captcha = eval(document.getElementsByName("captcha_id")[0]).value;
+        time = new Date().getTime();
+        $(".captcha-img").attr("src", "/captcha/"+captcha+".png?reload="+time);
+
+    }
+
+    //表单提交
+    $(document)
+        .ajaxStart(function(){
+            $("button:submit").addClass("log-in").attr("disabled", true);
+        })
+        .ajaxStop(function(){
+            $("button:submit").removeClass("log-in").attr("disabled", false);
+        });
+
+        $("form").submit(function(){
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), function(data){
+                if(data.status==1){
+                    window.location.href = data.url;
+                } else {
+                    self.find(".check-tips").text(data.message);
+                    //刷新验证码
+                    GetCaptcha();
+                }
+            }, "json");
+            return false;
+        });
+
+    $(function(){
+        //初始化选中用户名输入框
+        $("#itemBox").find("input[name=username]").focus();
+
+        //刷新验证码
+        $(".reloadverify").click(function(){
+            //window.location.reload();
+            GetCaptcha();
+        });
+
+        //placeholder兼容性
+        //如果支持 
+        function isPlaceholer(){
+            var input = document.createElement('input');
+            return "placeholder" in input;
+        }
+
+        //如果不支持
+        if(!isPlaceholer()){
+            $(".placeholder_copy").css({
+                display:'block'
+            })
+            $("#itemBox input").keydown(function(){
+                $(this).parents(".item").next(".placeholder_copy").css({
+                    display:'none'
+                })                    
+            })
+            $("#itemBox input").blur(function(){
+                if($(this).val()==""){
+                    $(this).parents(".item").next(".placeholder_copy").css({
+                        display:'block'
+                    })                      
+                }
+            })
+        }
+    });
+    </script>
+    </body>
+</html>
